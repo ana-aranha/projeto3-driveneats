@@ -8,10 +8,17 @@ let thirdOptionsMarked;
 let foodSelected;
 let drinkSelected;
 let dessertSelected;
+let foodPrice;
+let drinkPrice;
+let dessertPrice;
+let OrderPrice;
+let texto;
+let encoded;
 
 function selectFood(elemento){
     firstOptionsMarked = firstOptions.querySelector(".marked")
-    foodSelected = elemento.innerHTML;
+    foodSelected = elemento.querySelector("h3").innerHTML;
+    foodPrice = elemento.querySelector("h4").innerHTML;
     if (firstOptionsMarked !== null && firstOptionsMarked !== elemento){
         firstOptionsMarked.classList.remove("marked");
         elemento.classList.add("marked");
@@ -20,12 +27,13 @@ function selectFood(elemento){
     } else {
         elemento.classList.add("marked");
     };
-    OrderedCompleted();
+    Order();
 }
 
 function selectDrink(elemento){
     secondOptionsMarked = secondOptions.querySelector(".marked")
-    drinkSelected = elemento.innerHTML
+    drinkSelected = elemento.querySelector("h3").innerHTML;
+    drinkPrice = elemento.querySelector("h4").innerHTML;
     if (secondOptionsMarked !== null && secondOptionsMarked !== elemento){
         secondOptionsMarked.classList.remove("marked");
         elemento.classList.add("marked");
@@ -34,12 +42,13 @@ function selectDrink(elemento){
     } else {
         elemento.classList.add("marked");
     };
-    OrderedCompleted();
+    Order();
 }
 
 function selectDessert(elemento){
     thirdOptionsMarked = thirdOptions.querySelector(".marked")
-    dessertSelected = elemento.innerHTML
+    dessertSelected = elemento.querySelector("h3").innerHTML;
+    dessertPrice = elemento.querySelector("h4").innerHTML;
     if (thirdOptionsMarked !== null && thirdOptionsMarked !== elemento){
         thirdOptionsMarked.classList.remove("marked");
         elemento.classList.add("marked");
@@ -48,21 +57,23 @@ function selectDessert(elemento){
     } else {
         elemento.classList.add("marked");
     };
-   OrderedCompleted();
+   Order();
+}
+
+function selectOrderPrice(){
+    texto = `Olá, gostaria de fazer o pedido: \n-  Prato: ${foodSelected} \n- Bebida: ${drinkSelected} \n- Sobremesa: ${dessertSelected} \nTotal: R$ ${OrderPrice}`;
+    encoded = encodeURIComponent(texto);  
 }
 
 
-let texto = "Pedido Final";
-let encoded = encodeURIComponent(text);
-
-// ?text=
-
-function OrderedCompleted(){
+function Order(){
     let message = document.querySelector(".bottom > div");
     if(foodSelected && drinkSelected && dessertSelected && firstOptionsMarked === null && secondOptionsMarked === null && thirdOptionsMarked === null){
         message.classList.remove("beforeOrdered");
         message.classList.add("afterOrdered");
-        message.innerHTML = "<a target='_blank' href='https://wa.me/5598981060719'><p>Fechar Pedido</p></a>";
+        OrderPrice = (Number(foodPrice)+Number(drinkPrice)+Number(dessertPrice)).toFixed(2);
+        selectOrderPrice();
+        message.innerHTML = `<a target='_blank' href='https://wa.me/5598981060719?text=${encoded}'><p>Fechar Pedido</p></a>`;
     } else if(firstOptionsMarked !== null || secondOptionsMarked !== null || thirdOptionsMarked !== null){
         message.classList.add("beforeOrdered");
         message.classList.remove("afterOrdered");
