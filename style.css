@@ -29,6 +29,11 @@ h4{
     font-weight: 400;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+  }
+
 .top {
     background-color: #CF2B2B;
     width: 100%;
@@ -105,7 +110,6 @@ h4{
     position: absolute;
     bottom: 0px;
     right: 0px;
-    z-index: 2;
     display: initial;
 }
 
@@ -125,7 +129,6 @@ h4{
 }
 
 .bottom div{
-    background-color: #cbcbcb;
     color: #ffffff;
     font-size: 20px;
     width: 88%;
@@ -135,6 +138,13 @@ h4{
     justify-content: center;
     border-radius: 50px;
     padding: 0 10vw;
+}
+
+.beforeOrdered{
+    background-color: #cbcbcb;
+}
+.afterOrdered{  
+    background-color: #32B72F;
 }
 
 .bottom p{
