@@ -14,6 +14,9 @@ let dessertPrice;
 let OrderPrice;
 let texto;
 let encoded;
+let userName;
+let userAddress;
+let confirmationPage
 
 function selectFood(elemento){
     firstOptionsMarked = firstOptions.querySelector(".marked")
@@ -68,7 +71,7 @@ function releaseButton(){
     if(foodSelected && drinkSelected && dessertSelected){
         message.classList.remove("beforeOrdered");
         message.classList.add("afterOrdered");
-        message.innerHTML = "<p onclick='redirect()'>Fechar Pedido</p>";
+        message.innerHTML = "<p onclick='confirmOrder()'>Fechar Pedido</p>";
     } 
     else if(foodSelected == undefined || drinkSelected == undefined || dessertSelected == undefined){
         message.classList.add("beforeOrdered");
@@ -77,11 +80,35 @@ function releaseButton(){
     }
 }
 
-function redirect(){
-    OrderPrice = (Number(foodPrice)+Number(drinkPrice)+Number(dessertPrice)).toFixed(2);
-    let userName = prompt("Qual o seu nome?");
-    let userAddress = prompt("Qual o seu endereço?")
+function redirect(){    
+    userName = prompt("Qual o seu nome?");
+    userAddress = prompt("Qual o seu endereço?");
+    if(userName === null || userName === "" && userAddress === null || userAddress === ""){
+        userName = "Pessoa anônima"
+        userAddress = "Lugar misterioso"
+    }
     texto = `Olá, gostaria de fazer o pedido: \n-  Prato: ${foodSelected} \n- Bebida: ${drinkSelected} \n- Sobremesa: ${dessertSelected} \nTotal: R$ ${OrderPrice}\n \n Nome: ${userName} \n Endereço: ${userAddress}` ;
     encoded = encodeURIComponent(texto); 
     window.open(`https://wa.me/?text=${encoded}`, '_blank');
+}
+
+function confirmOrder(){
+    OrderPrice = (Number(foodPrice)+Number(drinkPrice)+Number(dessertPrice)).toFixed(2);
+    confirmationPage = document.querySelector("div:nth-child(9)");
+    confirmationPage.classList.remove("hidden");
+    confirmationPage.classList.add("blur");
+    let confirmationBox = confirmationPage.querySelector(".blur>div");
+    let confirmingFood = confirmationBox.querySelector("div:nth-child(2)")
+    let confirmingDrink = confirmationBox.querySelector("div:nth-child(3)")
+    let confirmingDesert = confirmationBox.querySelector("div:nth-child(4)")
+    let confirmingPrice = confirmationBox.querySelector("div:nth-child(5)")
+    confirmingFood.innerHTML = `<div class='confirmingOrder'><p>${foodSelected}</p><p>${foodPrice}</p></div>`
+    confirmingDrink.innerHTML = `<div class='confirmingOrder'><p>${drinkSelected}</p><p>${drinkPrice}</p></div>`
+    confirmingDesert.innerHTML = `<div class='confirmingOrder'><p>${dessertSelected}</p><p>${dessertPrice}</p></div>`
+    confirmingPrice.innerHTML = `<div class='confirmingOrder'><p>Total:</p><p>${OrderPrice}</p></div>`    
+}
+
+function cancelOrder(){
+    confirmationPage.classList.add("hidden");
+    confirmationPage.classList.remove("blur");
 }
