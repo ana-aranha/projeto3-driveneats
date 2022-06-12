@@ -18,12 +18,13 @@ let encoded;
 function selectFood(elemento){
     firstOptionsMarked = firstOptions.querySelector(".marked")
     foodSelected = elemento.querySelector("h3").innerHTML;
-    foodPrice = elemento.querySelector("h4").innerHTML;
+    foodPrice = elemento.querySelector("span").innerHTML;
     if (firstOptionsMarked !== null && firstOptionsMarked !== elemento){
         firstOptionsMarked.classList.remove("marked");
         elemento.classList.add("marked");
     } else if (firstOptionsMarked !== null && firstOptionsMarked === elemento){
-        elemento.classList.remove("marked")
+        elemento.classList.remove("marked");
+        foodSelected = undefined;
     } else {
         elemento.classList.add("marked");
     };
@@ -33,12 +34,13 @@ function selectFood(elemento){
 function selectDrink(elemento){
     secondOptionsMarked = secondOptions.querySelector(".marked")
     drinkSelected = elemento.querySelector("h3").innerHTML;
-    drinkPrice = elemento.querySelector("h4").innerHTML;
+    drinkPrice = elemento.querySelector("span").innerHTML;
     if (secondOptionsMarked !== null && secondOptionsMarked !== elemento){
         secondOptionsMarked.classList.remove("marked");
         elemento.classList.add("marked");
     } else if (secondOptionsMarked !== null && secondOptionsMarked === elemento){
-        elemento.classList.remove("marked")
+        elemento.classList.remove("marked");
+        drinkSelected = undefined
     } else {
         elemento.classList.add("marked");
     };
@@ -48,12 +50,13 @@ function selectDrink(elemento){
 function selectDessert(elemento){
     thirdOptionsMarked = thirdOptions.querySelector(".marked")
     dessertSelected = elemento.querySelector("h3").innerHTML;
-    dessertPrice = elemento.querySelector("h4").innerHTML;
+    dessertPrice = elemento.querySelector("span").innerHTML;
     if (thirdOptionsMarked !== null && thirdOptionsMarked !== elemento){
         thirdOptionsMarked.classList.remove("marked");
         elemento.classList.add("marked");
     } else if (thirdOptionsMarked !== null && thirdOptionsMarked === elemento){
-        elemento.classList.remove("marked")
+        elemento.classList.remove("marked");
+        dessertSelected = undefined
     } else {
         elemento.classList.add("marked");
     };
@@ -65,22 +68,21 @@ function selectOrderPrice(){
     encoded = encodeURIComponent(texto);  
 }
 
-
 function Order(){
     let message = document.querySelector(".bottom > div");
-    if(foodSelected && drinkSelected && dessertSelected && firstOptionsMarked === null && secondOptionsMarked === null && thirdOptionsMarked === null){
+    if(foodSelected && drinkSelected && dessertSelected){
         message.classList.remove("beforeOrdered");
         message.classList.add("afterOrdered");
         OrderPrice = (Number(foodPrice)+Number(drinkPrice)+Number(dessertPrice)).toFixed(2);
         selectOrderPrice();
-        message.innerHTML = `<a target='_blank' href='https://wa.me/5598981060719?text=${encoded}'><p>Fechar Pedido</p></a>`;
-    } else if(firstOptionsMarked !== null || secondOptionsMarked !== null || thirdOptionsMarked !== null){
+        message.innerHTML = `<a target='_blank' href='https://wa.me/?text=${encoded}'><p>Fechar Pedido</p></a>`;
+    } 
+    else if(foodSelected == undefined || drinkSelected == undefined || dessertSelected == undefined){
         message.classList.add("beforeOrdered");
         message.classList.remove("afterOrdered");
         message.innerHTML ="<p>Selecione os 3 itens para fechar o pedido</p>"
     }
 }
-
 
 
 
