@@ -28,7 +28,7 @@ function selectFood(elemento){
     } else {
         elemento.classList.add("marked");
     };
-    Order();
+    releaseButton();
 }
 
 function selectDrink(elemento){
@@ -44,7 +44,7 @@ function selectDrink(elemento){
     } else {
         elemento.classList.add("marked");
     };
-    Order();
+    releaseButton();
 }
 
 function selectDessert(elemento){
@@ -60,22 +60,15 @@ function selectDessert(elemento){
     } else {
         elemento.classList.add("marked");
     };
-   Order();
+   releaseButton();
 }
 
-function selectOrderPrice(){
-    texto = `Olá, gostaria de fazer o pedido: \n-  Prato: ${foodSelected} \n- Bebida: ${drinkSelected} \n- Sobremesa: ${dessertSelected} \nTotal: R$ ${OrderPrice}`;
-    encoded = encodeURIComponent(texto);  
-}
-
-function Order(){
+function releaseButton(){
     let message = document.querySelector(".bottom > div");
     if(foodSelected && drinkSelected && dessertSelected){
         message.classList.remove("beforeOrdered");
         message.classList.add("afterOrdered");
-        OrderPrice = (Number(foodPrice)+Number(drinkPrice)+Number(dessertPrice)).toFixed(2);
-        selectOrderPrice();
-        message.innerHTML = `<a target='_blank' href='https://wa.me/?text=${encoded}'><p>Fechar Pedido</p></a>`;
+        message.innerHTML = "<p onclick='redirect()'>Fechar Pedido</p>";
     } 
     else if(foodSelected == undefined || drinkSelected == undefined || dessertSelected == undefined){
         message.classList.add("beforeOrdered");
@@ -84,6 +77,11 @@ function Order(){
     }
 }
 
-
-
-
+function redirect(){
+    OrderPrice = (Number(foodPrice)+Number(drinkPrice)+Number(dessertPrice)).toFixed(2);
+    let userName = prompt("Qual o seu nome?");
+    let userAddress = prompt("Qual o seu endereço?")
+    texto = `Olá, gostaria de fazer o pedido: \n-  Prato: ${foodSelected} \n- Bebida: ${drinkSelected} \n- Sobremesa: ${dessertSelected} \nTotal: R$ ${OrderPrice}\n \n Nome: ${userName} \n Endereço: ${userAddress}` ;
+    encoded = encodeURIComponent(texto); 
+    window.open(`https://wa.me/?text=${encoded}`, '_blank');
+}
