@@ -83,10 +83,10 @@ function releaseButton(){
 function redirect(){    
     userName = prompt("Qual o seu nome?");
     userAddress = prompt("Qual o seu endereço?");
-    if(userName === null || userName === "" && userAddress === null || userAddress === ""){
-        userName = "Pessoa anônima"
-        userAddress = "Lugar misterioso"
-    }
+    if(userName === null || userName === ""){
+        userName = "Pessoa anônima"}
+    else if(userAddress === null || userAddress === ""){
+        userAddress = "Lugar misterioso"}
     texto = `Olá, gostaria de fazer o pedido: \n-  Prato: ${foodSelected} \n- Bebida: ${drinkSelected} \n- Sobremesa: ${dessertSelected} \nTotal: R$ ${OrderPrice}\n \n Nome: ${userName} \n Endereço: ${userAddress}` ;
     encoded = encodeURIComponent(texto); 
     window.open(`https://wa.me/?text=${encoded}`, '_blank');

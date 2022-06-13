@@ -169,14 +169,15 @@ a {
 .blur > div{
     background-color: #50D074;
     color: #ffffff;
-    width: 377px;
-    height: 353px;
+    width: 90vw;
+    height: auto;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 22px;
+    padding: 10px 0;
 }
 
 .blur span{
@@ -188,8 +189,9 @@ a {
 .blur button{
     background-color: #ffffff;
     color: #50D074;
-    width: 300px;
-    height: 40px;
+    width: 80vw;
+    height: auto;
+    padding: 10px 0;
     border-radius: 50px;
     border-style: none;
     font-size: 22px;
@@ -199,7 +201,7 @@ a {
 }
 
 .confirmingOrder{
-    width: 300px;
+    width: 80vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
