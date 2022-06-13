@@ -87,13 +87,13 @@ function redirect(){
         alert("Preencha seus dados ;) ")
         cancelOrder()
     }
-    else {texto = `Olá, gostaria de fazer o pedido: \n-  Prato: ${foodSelected} \n- Bebida: ${drinkSelected} \n- Sobremesa: ${dessertSelected} \nTotal: R$ ${OrderPrice}\n \n Nome: ${userName} \n Endereço: ${userAddress}` ;
+    else {texto = `Olá, gostaria de fazer o pedido: \n-  Prato: ${foodSelected} \n- Bebida: ${drinkSelected} \n- Sobremesa: ${dessertSelected} \nTotal: R$ ${OrderPrice.replace("." ,",")}\n \n Nome: ${userName} \n Endereço: ${userAddress}` ;
     encoded = encodeURIComponent(texto); 
     window.open(`https://wa.me/?text=${encoded}`, '_blank')};
 }
 
 function confirmOrder(){
-    OrderPrice = (Number(foodPrice)+Number(drinkPrice)+Number(dessertPrice)).toFixed(2);
+    OrderPrice = (Number(foodPrice.replace("," ,"."))+Number(drinkPrice.replace("," ,"."))+Number(dessertPrice.replace("," ,"."))).toFixed(2);
     confirmationPage = document.querySelector("div:nth-child(9)");
     confirmationPage.classList.remove("hidden");
     confirmationPage.classList.add("blur");
@@ -105,7 +105,7 @@ function confirmOrder(){
     confirmingFood.innerHTML = `<div class='confirmingOrder'><p>${foodSelected}</p><p>${foodPrice}</p></div>`
     confirmingDrink.innerHTML = `<div class='confirmingOrder'><p>${drinkSelected}</p><p>${drinkPrice}</p></div>`
     confirmingDesert.innerHTML = `<div class='confirmingOrder'><p>${dessertSelected}</p><p>${dessertPrice}</p></div>`
-    confirmingPrice.innerHTML = `<div class='confirmingOrder'><p>Total:</p><p>${OrderPrice}</p></div>`    
+    confirmingPrice.innerHTML = `<div class='confirmingOrder'><p>Total:</p><p>${OrderPrice.replace("." ,",")}</p></div>`    
 }
 
 function cancelOrder(){
