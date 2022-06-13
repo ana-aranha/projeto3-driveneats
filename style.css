@@ -73,6 +73,10 @@ a {
     overflow-x: scroll;
 }
 
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+    }
+
 .options div{
     width: 175px;
     border-radius: 15px;
